@@ -45,14 +45,17 @@ class App extends Component {
         if (row.every(square => square === 2)) p2Wins = true;
       });
 
-      //need way to get all 1s and all 2s from a column
-      currentBoard.reduce((row, rowIndex) => {
-        debugger;
-        row.map((value, column) => {
-          debugger;
+      const columns = [[], [], []];
+      currentBoard.forEach((row, rowIndex) => {
+        row.forEach((value, column) => {
+          columns[column].push(value);
         });
       });
-
+      columns.forEach(column => {
+        if (column.every(val => val === 1)) p1Wins = true;
+        if (column.every(val => val === 2)) p2Wins = true;
+      });
+      debugger;
       return newState;
     });
   };
