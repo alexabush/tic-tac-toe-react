@@ -17,14 +17,16 @@ class App extends Component {
     console.log('position: ', position);
     const [targetRow, targetColumn] = position;
     this.setState(prevState => {
-      const { isPlayer1Turn: updatedIsPlayer1Turn, board: newBoard } = {
-        ...prevState
-      };
-      const updatedIsPlayer1Turn = null;
-      if (newBoard[targetRow][targetColumn] === 0) {
-        newBoard[targetRow][targetColumn] = 1;
+      const newState = { ...prevState };
+      if (newState.board[targetRow][targetColumn] === 0) {
+        if (newState.isPlayer1Turn) {
+          newState.board[targetRow][targetColumn] = 1;
+        } else {
+          newState.board[targetRow][targetColumn] = 2;
+        }
+        newState.isPlayer1Turn = !newState.isPlayer1Turn;
       }
-      return newBoard;
+      return newState;
     });
   };
 
