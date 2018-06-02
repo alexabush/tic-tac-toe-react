@@ -1,18 +1,26 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+import Board from './Board';
 import './App.css';
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      board: Array.from({ length: 3 }, val => {
+        return Array.from({ length: 3 }, val => 0);
+      })
+    };
+  }
+
+  squareClicked = position => {
+    console.log('position: ', position);
+  };
+
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+        <h1>Connect Four</h1>
+        <Board board={this.state.board} squareClicked={this.squareClicked} />
       </div>
     );
   }
