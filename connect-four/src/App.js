@@ -14,6 +14,13 @@ class App extends Component {
 
   squareClicked = position => {
     console.log('position: ', position);
+    const [targetRow, targetColumn] = position;
+    this.setState(({ board: prevBoard }) => {
+      const newBoard = { ...prevBoard };
+      newBoard[targetRow][targetColumn] = 1;
+      debugger;
+      return newBoard;
+    });
   };
 
   render() {
