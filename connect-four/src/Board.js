@@ -20,7 +20,12 @@ class Board extends Component {
         ))}
       </Row>
     ));
-    return <div>{squares}</div>;
+    return (
+      <div>
+        <div>{squares}</div>
+        <p>Ready: {this.props.currentTurn ? 'Player 1' : 'Player 2'}</p>
+      </div>
+    );
   }
 }
 

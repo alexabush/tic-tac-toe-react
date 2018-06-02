@@ -34,7 +34,11 @@ class App extends Component {
     return (
       <div className="App">
         <h1>Connect Four</h1>
-        <Board board={this.state.board} squareClicked={this.squareClicked} />
+        <Board
+          board={this.state.board}
+          squareClicked={this.squareClicked}
+          currentTurn={this.state.isPlayer1Turn}
+        />
       </div>
     );
   }
