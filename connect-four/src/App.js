@@ -6,6 +6,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      isPlayer1Turn: true,
       board: Array.from({ length: 3 }, val => {
         return Array.from({ length: 3 }, val => 0);
       })
@@ -15,10 +16,14 @@ class App extends Component {
   squareClicked = position => {
     console.log('position: ', position);
     const [targetRow, targetColumn] = position;
-    this.setState(({ board: prevBoard }) => {
-      const newBoard = { ...prevBoard };
-      newBoard[targetRow][targetColumn] = 1;
-      debugger;
+    this.setState(prevState => {
+      const { isPlayer1Turn: updatedIsPlayer1Turn, board: newBoard } = {
+        ...prevState
+      };
+      const updatedIsPlayer1Turn = null;
+      if (newBoard[targetRow][targetColumn] === 0) {
+        newBoard[targetRow][targetColumn] = 1;
+      }
       return newBoard;
     });
   };
