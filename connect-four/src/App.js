@@ -18,6 +18,10 @@ class App extends Component {
     console.log('position: ', position);
     const [targetRow, targetColumn] = position;
     this.setState(prevState => {
+      if (prevState.winStatus !== 0) {
+        console.log('Game has finished, play again?');
+        return prevState;
+      }
       const newState = { ...prevState };
       if (newState.board[targetRow][targetColumn] === 0) {
         if (newState.isPlayer1Turn) {
