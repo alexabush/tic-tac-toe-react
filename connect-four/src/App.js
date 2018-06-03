@@ -43,7 +43,6 @@ class App extends Component {
       const currentBoard = newState.board;
       let stalemate = true;
       currentBoard.forEach((row, rowIndex) => {
-        debugger;
         if (row.some(value => value === 0)) stalemate = false;
       });
       if (stalemate) newState.winStatus = 3;
@@ -85,7 +84,7 @@ class App extends Component {
     });
   };
 
-  playAgain = () => this.setState(DEFAULT_STATE);
+  playAgain = () => this.setState(JSON.parse(JSON.stringify(DEFAULT_STATE)));
 
   render() {
     return (
