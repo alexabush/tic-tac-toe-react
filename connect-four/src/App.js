@@ -59,13 +59,21 @@ class App extends Component {
       let p1Wins,
         p2Wins = false;
       const columns = Array.from({ length: currentBoard.length }, val => []);
+      const di1 = [];
+      const di2 = [];
       currentBoard.forEach((row, rowIndex) => {
         if (row.every(square => square === 1)) p1Wins = true;
         if (row.every(square => square === 2)) p2Wins = true;
-        row.forEach((value, column) => {
+        row.forEach((value, column, row) => {
           columns[column].push(value);
+          if (column === rowIndex) di1.push(value);
+          if (column === row.length - rowIndex - 1) di2.push(value);
         });
       });
+      if (di1.every(val => val === 1)) p1Wins = true;
+      if (di1.every(val => val === 2)) p2Wins = true;
+      if (di2.every(val => val === 1)) p1Wins = true;
+      if (di2.every(val => val === 2)) p2Wins = true;
       columns.forEach(column => {
         if (column.every(val => val === 1)) p1Wins = true;
         if (column.every(val => val === 2)) p2Wins = true;
