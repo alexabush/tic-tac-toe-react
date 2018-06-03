@@ -21,16 +21,19 @@ class Board extends Component {
       </Row>
     ));
 
-    let winStatus;
+    let playStatus;
     switch (this.props.winStatus) {
     case 0:
-      winStatus = 'Keep Playing!';
+      playStatus = 'Keep Playing!';
       break;
     case 1:
-      winStatus = 'Player 1 Wins!';
+      playStatus = 'Player 1 Wins!';
       break;
     case 2:
-      winStatus = 'Player 2 Wins!';
+      playStatus = 'Player 2 Wins!';
+      break;
+    case 3:
+      playStatus = 'Stalemate!';
       break;
     }
 
@@ -38,7 +41,7 @@ class Board extends Component {
       <div>
         <div>{squares}</div>
         <p>Ready: {this.props.currentTurn ? 'Player 1' : 'Player 2'}</p>
-        <p>{winStatus}</p>
+        <p>{playStatus}</p>
         <button onClick={this.props.playAgain}>Play Again?</button>
       </div>
     );

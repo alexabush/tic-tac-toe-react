@@ -34,6 +34,21 @@ class App extends Component {
       return newState;
     });
     this.checkWin();
+    this.checkStalemate();
+  };
+
+  checkStalemate = () => {
+    this.setState(prevState => {
+      const newState = { ...prevState };
+      const currentBoard = newState.board;
+      let stalemate = true;
+      currentBoard.forEach((row, rowIndex) => {
+        debugger;
+        if (row.some(value => value === 0)) stalemate = false;
+      });
+      if (stalemate) newState.winStatus = 3;
+      return newState;
+    });
   };
 
   checkWin = () => {
