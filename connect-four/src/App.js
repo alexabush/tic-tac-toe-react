@@ -6,7 +6,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isWin: false,
+      winStatus: 0,
       isPlayer1Turn: true,
       board: Array.from({ length: 3 }, val => {
         return Array.from({ length: 3 }, val => 0);
@@ -38,15 +38,10 @@ class App extends Component {
       const currentBoard = newState.board;
       let p1Wins,
         p2Wins = false;
-      currentBoard.map((row, rowIndex) => {
-        //find way to map columns
-        //find way to map each diagonal
+      const columns = Array.from({ length: currentBoard.length }, val => []);
+      currentBoard.forEach((row, rowIndex) => {
         if (row.every(square => square === 1)) p1Wins = true;
         if (row.every(square => square === 2)) p2Wins = true;
-      });
-
-      const columns = [[], [], []];
-      currentBoard.forEach((row, rowIndex) => {
         row.forEach((value, column) => {
           columns[column].push(value);
         });
@@ -55,7 +50,9 @@ class App extends Component {
         if (column.every(val => val === 1)) p1Wins = true;
         if (column.every(val => val === 2)) p2Wins = true;
       });
-      debugger;
+
+      if (p1Wins) newState.winStatus = 1;
+      if (p2Wins) newState.winStatus = 2;
       return newState;
     });
   };
@@ -68,6 +65,7 @@ class App extends Component {
           board={this.state.board}
           squareClicked={this.squareClicked}
           currentTurn={this.state.isPlayer1Turn}
+          winStatus={this.state.winStatus}
         />
       </div>
     );
