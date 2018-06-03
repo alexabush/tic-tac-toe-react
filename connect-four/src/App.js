@@ -2,26 +2,26 @@ import React, { Component } from 'react';
 import Board from './Board';
 import './App.css';
 
+const DEFAULT_STATE = {
+  winStatus: 0,
+  isPlayer1Turn: true,
+  board: Array.from({ length: 3 }, val => {
+    return Array.from({ length: 3 }, val => 0);
+  })
+};
+
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      winStatus: 0,
-      isPlayer1Turn: true,
-      board: Array.from({ length: 3 }, val => {
-        return Array.from({ length: 3 }, val => 0);
-      })
-    };
+    //deep clone
+    this.state = JSON.parse(JSON.stringify(DEFAULT_STATE));
   }
 
   squareClicked = position => {
     console.log('position: ', position);
     const [targetRow, targetColumn] = position;
     this.setState(prevState => {
-      if (prevState.winStatus !== 0) {
-        console.log('Game has finished, play again?');
-        return prevState;
-      }
+      if (prevState.winStatus !== 0) return prevState;
       const newState = { ...prevState };
       if (newState.board[targetRow][targetColumn] === 0) {
         if (newState.isPlayer1Turn) {
@@ -38,6 +38,7 @@ class App extends Component {
 
   checkWin = () => {
     this.setState(prevState => {
+      if (prevState.winStatus !== 0) return prevState;
       const newState = { ...prevState };
       const currentBoard = newState.board;
       let p1Wins,
@@ -61,6 +62,8 @@ class App extends Component {
     });
   };
 
+  playAgain = () => this.setState(DEFAULT_STATE);
+
   render() {
     return (
       <div className="App">
@@ -70,6 +73,7 @@ class App extends Component {
           squareClicked={this.squareClicked}
           currentTurn={this.state.isPlayer1Turn}
           winStatus={this.state.winStatus}
+          playAgain={this.playAgain}
         />
       </div>
     );

@@ -39,6 +39,7 @@ class Board extends Component {
         <div>{squares}</div>
         <p>Ready: {this.props.currentTurn ? 'Player 1' : 'Player 2'}</p>
         <p>{winStatus}</p>
+        <button onClick={this.props.playAgain}>Play Again?</button>
       </div>
     );
   }
