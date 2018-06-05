@@ -4,7 +4,6 @@ import './App.css';
 
 const DEFAULT_STATE = {
   winStatus: 0,
-  isPlayer1Turn: true,
   board: Array.from({ length: 3 }, val => {
     return Array.from({ length: 3 }, val => 0);
   })
@@ -14,7 +13,11 @@ class App extends Component {
   constructor(props) {
     super(props);
     //deep clone
-    this.state = JSON.parse(JSON.stringify(DEFAULT_STATE));
+    this.state = {
+      ...JSON.parse(JSON.stringify(DEFAULT_STATE)),
+      isPlayer1Start: true,
+      isPlayer1Turn: true
+    };
   }
 
   squareClicked = position => {
@@ -77,19 +80,24 @@ class App extends Component {
         if (column.every(val => val === 1)) p1Wins = true;
         if (column.every(val => val === 2)) p2Wins = true;
       });
-
       if (p1Wins) newState.winStatus = 1;
       if (p2Wins) newState.winStatus = 2;
       return newState;
     });
   };
 
-  playAgain = () => this.setState(JSON.parse(JSON.stringify(DEFAULT_STATE)));
+  playAgain = () =>
+    this.setState(prevState => {
+      const newState = JSON.parse(JSON.stringify(DEFAULT_STATE));
+      newState.isPlayer1Start = !prevState.isPlayer1Start;
+      newState.isPlayer1Turn = newState.isPlayer1Start;
+      return newState;
+    });
 
   render() {
     return (
       <div className="App">
-        <h1>Tic Tac Toe</h1>
+        <h1>Connect Four</h1>
         <Board
           board={this.state.board}
           squareClicked={this.squareClicked}
