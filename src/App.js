@@ -97,7 +97,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <h1>Connect Four</h1>
+        <h1>Tic Tac Toe</h1>
         <Board
           board={this.state.board}
           squareClicked={this.squareClicked}
